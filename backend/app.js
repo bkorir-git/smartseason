@@ -16,7 +16,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:3000"
-      // 👉 add your Render frontend URL later
+      "https://smartseason-7wms.onrender.com"
     ],
     credentials: true
   })
