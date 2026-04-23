@@ -4,8 +4,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const pool = mysql.createPool({
-  uri: process.env.MYSQL_PUBLIC_URL,
-  multipleStatements: true
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT || 3306,
+  waitForConnections: true,
+  connectionLimit: 10
 });
 
 export default pool;
