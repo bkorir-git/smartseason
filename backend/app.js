@@ -24,7 +24,13 @@ app.use(
 
 app.use(express.json());
 
-// ✅ ROOT ROUTE (fixes "Cannot GET /")
+/**
+ * =========================
+ * ROOT ROUTES
+ * =========================
+ */
+
+// Root health check ("/")
 app.get("/", (req, res) => {
   res.json({
     message: "SmartSeason API is running 🚀",
@@ -32,30 +38,42 @@ app.get("/", (req, res) => {
   });
 });
 
-// ✅ HEALTH CHECK (interview bonus)
-app.get("/health", (req, res) => {
+// API health check ("/api")
+app.get("/api", (req, res) => {
   res.json({
-    status: "healthy",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString()
+    message: "SmartSeason API is running 🚀",
+    status: "OK"
   });
 });
 
-// API ROUTES
+/**
+ * =========================
+ * API ROUTES
+ * =========================
+ */
+
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/fields", fieldRoutes);
 app.use("/api/updates", updateRoutes);
 app.use("/api/users", userRoutes);
 
-// 404 HANDLER for API routes
+/**
+ * =========================
+ * 404 HANDLER
+ * =========================
+ */
 app.use("/api", (req, res) => {
   res.status(404).json({
     message: "API route not found."
   });
 });
 
-// ERROR HANDLER
+/**
+ * =========================
+ * ERROR HANDLER
+ * =========================
+ */
 app.use(errorHandler);
 
 export default app;
