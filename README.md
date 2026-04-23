@@ -28,4 +28,8 @@ npm start
 
 ## Deployment
 Backend: Railway  
+<<<<<<< HEAD
 Frontend: Render
+=======
+Frontend: Render
+>>>>>>> 97375310597adef8063b72a582472f5802fa1187
