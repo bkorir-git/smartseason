@@ -10,13 +10,13 @@ import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 
-// CORS (development + production safe)
+// CORS
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "http://localhost:3000"
-      // Add your Render frontend URL here later
+      // 👉 add your Render frontend URL later
     ],
     credentials: true
   })
@@ -25,12 +25,8 @@ app.use(
 app.use(express.json());
 
 /**
- * =========================
- * ROOT ROUTES
- * =========================
+ * ROOT ROUTE
  */
-
-// Root health check ("/")
 app.get("/", (req, res) => {
   res.json({
     message: "SmartSeason API is running 🚀",
@@ -38,20 +34,22 @@ app.get("/", (req, res) => {
   });
 });
 
-// API health check ("/api")
-app.get("/api", (req, res) => {
-  res.json({
-    message: "SmartSeason API is running 🚀",
-    status: "OK"
-  });
+/**
+ * ✅ FIXED /api ROOT HANDLER
+ */
+app.use("/api", (req, res, next) => {
+  if (req.path === "/" || req.path === "") {
+    return res.json({
+      message: "SmartSeason API is running 🚀",
+      status: "OK"
+    });
+  }
+  next();
 });
 
 /**
- * =========================
  * API ROUTES
- * =========================
  */
-
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/fields", fieldRoutes);
@@ -59,9 +57,7 @@ app.use("/api/updates", updateRoutes);
 app.use("/api/users", userRoutes);
 
 /**
- * =========================
  * 404 HANDLER
- * =========================
  */
 app.use("/api", (req, res) => {
   res.status(404).json({
@@ -70,9 +66,7 @@ app.use("/api", (req, res) => {
 });
 
 /**
- * =========================
  * ERROR HANDLER
- * =========================
  */
 app.use(errorHandler);
 
