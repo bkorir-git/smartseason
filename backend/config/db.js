@@ -3,16 +3,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-if (!process.env.MYSQLHOST || !process.env.MYSQLUSER || !process.env.MYSQLDATABASE) {
-  throw new Error("Missing MYSQL env variables in Railway");
-}
-
 const pool = mysql.createPool({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
   port: process.env.MYSQLPORT || 3306,
+
+  // 🔥 IMPORTANT FIX
+  multipleStatements: true,
+
+  waitForConnections: true,
+  connectionLimit: 10
 });
 
 export default pool;
