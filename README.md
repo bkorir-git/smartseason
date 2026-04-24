@@ -90,3 +90,16 @@ Frontend: [http://localhost:5173](http://localhost:5173)
 * Latest update determines field stage
 * Admin has full system visibility
 * Seed data is for testing/demo purposes only
+
+---
+
+## Deployment
+
+* Frontend: https://smartseason-7wms.onrender.com 
+* Backend API: https://smartseason-production-1749.up.railway.app/ 
+* Database: Railway MySQL
+
+### Notes
+* Frontend is deployed on Render  
+* Backend is deployed on Railway  
+* Database is hosted on Railway MySQL with environment variables
